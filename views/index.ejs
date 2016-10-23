@@ -1,0 +1,32 @@
+<%- include('partials/header'); %>
+<header class="create">
+  <a href="/story" id="start-story" class="create__button">Start a story</a>
+  <h1 class="logo"><img src="https://s14.postimg.org/rd4l72zfl/Story_Collab_Resize2.png" width="250" height="65"></h1>
+</header>
+<section class="category">
+  <h2 class="category__title">Open Stories</h2>
+  <ul class="category__list">
+    <% stories.forEach(function(story) { %>
+        <li class="category__item">
+          <a href="/story/<%= story.id %>" class="story-preview">
+            <h3 class="story-preview__title"><%= story.Title %>&hellip;</h3>
+            <footer class="story-preview__footer story-data">
+              <ul class="story-data__list">
+                <li class="story-data__item">
+                  <bold class="story-data__type">Active Authors:</bold>
+                  
+                </li>
+                <li class="story-data__item">
+                  <bold class="story-data__type">Time Created:</bold>
+                  <% const date = new Date(1477172179).toLocaleTimeString() %>
+                  <%= story.timestamp %>
+                </li>
+              </ul>
+            </footer>
+          </a>
+        </li>
+    <% }); %>
+  </ul>
+</section>
+<%- include('partials/footer'); %>
+

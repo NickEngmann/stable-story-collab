@@ -1,0 +1,25 @@
+<%- include('partials/header'); %>
+<header class="create">
+  <a href="/story" id="start-story" class="create__button">Start a story</a>
+  <a href="/"><h1 class="logo"><img src="https://s14.postimg.org/rd4l72zfl/Story_Collab_Resize2.png" width="250" height="65"></h1></a>
+</header>
+<section class="story">
+<div id="story" class="story__container">
+  <!-- This is where the story snippets will go -->
+  <% messages.forEach(function (message) { %>
+    <span class="story__message" tabindex="1"><%= message %></span>
+    <% }); %>
+  </div>
+</section>
+
+<footer class="user-input">
+  <form class="user-input__form" id="input-form">
+    <input type="text" id="input-text" class="user-input__text" placeholder="Continue story here!"/>
+    <button class="user-input__submit">Add</button>
+  </form>
+  <small class="typing-notice" id="active-notice"><span class="typing-notice__number" id="active-authors"></span> authors are typing</small>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.5.0/socket.io.min.js" charset="utf-8"></script>
+<script src="/public/scripts/app.js"></script>
+<%- include('partials/footer'); %>
