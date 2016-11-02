@@ -19,14 +19,7 @@ const io = require('socket.io')(server);
 const path = require('path');
 
 const port = process.env.PORT || 3000;
-//Loads in the Number of Past Messages on Current Story
-// firebase.database().ref('Storys/One/Total').once('value').then(function(snapshot){
-//   messageNumber = snapshot.val();
-//   if(messageNumber == null){
-//     messageNumber = 0;
-//   }
 
-// });
 const authors = [];
 var messages = [];
 
@@ -75,30 +68,6 @@ app.get('/story', (request, response) => {
 
 app.get('/story/:id', (request, response) => {
   currentStoryID = request.params.id;
-//  firstime = 0;
-  // messageNumber = 0;
-  //Read Messages From Current Story
-  // console.log('StoryID in readMessagesFromStory: '+currentStoryID);
-  // firebase.database().ref('message/'+currentStoryID).once('value').then(function(snapshot){
-  //   var pastStory = snapshot.val();
-  //   messages = [];
-  //     for(var i = pastStory.length - 1; i >= 0; i--) {
-  //       messages[i] = pastStory[i].contents
-  //     };
-  //   //messages.push(pastStory.contents);
-  //   console.log('Messages array:' + messages);
-  //     firebase.database().ref('Storys/'+currentStoryID/+'endTime').once('value').then(function(snapshot){
-  //       var endTime = snapshot.val();
-  //       var currentTime = Math.round(new Date().getTime()/1000);
-  //       var timeLeft = endTime - currentTime;
-  //       console.log(timeLeft);
-  //     });
-  //   });
-
-    // var messagesonpage = firebase.database().ref('message/' + currentStoryID );
-    // messagesonpage.on('value', function(snapshot) {
-    // if(firstime == 0){
-    //   firstime == 1;
       firebase.database().ref('message/'+currentStoryID).once('value').then(function(snapshot){
       var pastStory = snapshot.val();
       messages = [];
@@ -111,9 +80,7 @@ app.get('/story/:id', (request, response) => {
           };
         response.render('story', {messages: messages});
         }
-      // }
       });
-  // response.redirect(request.get('/story/:id'));
 });
 
 app.get('/favicon.ico', (request, response) => {
@@ -138,23 +105,6 @@ io.on('connection', (socket) => {
 
   // When this socket adds a new message
   socket.on('add message', (data) => {
-    // var totalmessages = firebase.database().ref('Storys/' + currentStoryID);
-    // totalmessages.on('value', function(snapshot) {
-    //     // console.log(snapshot.val());
-    //     var obj = snapshot.val();
-    //     //var obj = JSON.parse(snapshot.val());
-    //     if(obj == null){
-    //       messageNumber = 0;
-    //     }
-    //     else{
-    //       messageNumber = obj.Total;
-    //       console.log("Message Number is:", messageNumber);
-    //     }
-    // });
-    // firebase.database().ref('message/'+currentStoryID).once('value').then(function(snapshot){
-    //   var messageJson = snapshot.val();
-    //   messageNumber =(Object.keys(messageJson).length);
-    //   });
     console.log(`New message from #${authorId}: ${data.message}`);
     console.log('message array:' + messages);
     // Broadcast new message to all other sockets
@@ -169,18 +119,6 @@ io.on('connection', (socket) => {
     socket.emit('other typing', ++areTyping);
   });
 
-  // // End Button
-  // socket.on('end button', () =>{
-  //   firebase.database().ref('message/'+currentStoryID+'/0/author').once('value').then(function(snapshot){
-  //     var originalAuthor = snapshot.val();
-  //     if (originalAuthor == authorId){
-  //         firebase.database().ref('Storys/'+currentStoryID).update({
-  //           active: false
-  //         });
-  //       //redirect back to home page
-  //     };
-  //   });
-  // });
   // Notify all authors that this author stopped typing
   socket.on('stop typing', () => {
     console.log(`Author #${authorId} stopped typing.`);
@@ -237,11 +175,6 @@ function writeMessageContent(messages, message, authorId, currentStoryID){
         });
     }
     else{
-      // firebase.database().ref('Story/'+currentStoryID+'/active/').once('value').then(function(snapshot){
-      //   var isactive = snapshot.val();
-      //   console.log(Object.keys(isactive));
-      // if(isactive == false){
-          //updates the message array
           messages.push(message);
           //creates the timestamp
           var date = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
@@ -258,28 +191,10 @@ function writeMessageContent(messages, message, authorId, currentStoryID){
           Total: messageNumber+1
         });
        }
-      // if(isactive == false){
-      //   //Gui that says the following:
-      //   console.log('SORRY THIS STORY HAS ENDED');
-      //   }
-      // });
-    // }
 
        });
 }
 
-// function readMessagesFromStory(currentStoryID, messages){
-//   console.log('StoryID in readMessagesFromStory: '+currentStoryID);
-//   firebase.database().ref('message/'+currentStoryID).once('value').then(function(snapshot){
-//     var pastStory = snapshot.val();
-//     messages = [];
-//       for(var i = pastStory.length - 1; i >= 0; i--) {
-//         messages[i] = pastStory[i].contents
-//       };
-//     //messages.push(pastStory.contents);
-//     console.log('Messages array:' + messages);
-//     });
-// }
 
 function guidGenerator() {
     var S4 = function() {
