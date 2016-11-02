@@ -7,9 +7,8 @@ https://nodejs.org/en/download/
 
 ##Step 2
 #Clone Repo
-#cd story-collab
+cd story-collab
 
 ##step 3
-#npm install
-
-#node index.js
+npm install</br>
+node index.js</br>
