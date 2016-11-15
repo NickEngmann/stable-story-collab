@@ -42,7 +42,8 @@ function getUniqueStories(){
     uniqueStories = Object.keys(storys).map(function(key) {
        return storys[key];
       });
-    });  
+    });
+    console.log(uniqueStories);  
 }
 getUniqueStories();
 

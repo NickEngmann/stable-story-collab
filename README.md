@@ -1,5 +1,6 @@
 # story-collab
 Collaborative storytelling app
+Currently live on http://bit.ly/divatx-storycollab
 
 ##Step 1
 #Donload node.js
