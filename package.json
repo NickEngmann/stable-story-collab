@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/cuyaproductions/story-collab#readme",
   "dependencies": {
-    "ejs": "^2.5.2",
+    "ejs": "^3.1.7",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
     "firebase": "^3.5.1",
