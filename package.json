@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -18,10 +20,12 @@
   },
   "homepage": "https://github.com/cuyaproductions/story-collab#readme",
   "dependencies": {
-    "ejs": "^2.5.2",
+    "ejs": "^3.1.7",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
-    "firebase": "^3.5.1",
-    "socket.io": "^1.5.0"
-  }
+    "firebase": "^4.5.1",
+    "socket.io": "^3.0.0",
+    "@snyk/protect": "latest"
+  },
+  "snyk": true
 }
